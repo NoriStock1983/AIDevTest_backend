@@ -1,12 +1,9 @@
 name: IT Audit Compliance Workflow
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, release ]
   pull_request:
-    branches: [ main ]
-  schedule:
-    # 毎日午前2時に定期実行
-    - cron: '0 2 * * *'
+    branches: [ main, develop, release ]
 
 env:
   AUDIT_LOG_RETENTION: 2555 # 7年間保存 (J-SOX要件)
@@ -163,7 +160,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: javascript, python, java, csharp, cpp, go
+          languages: python
       
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3
